@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block main %}
+<h1 class="page-header">File Upload</h1>
+
+{% include 'flash_messages.html' %}
+
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <div class="alert alert-success">
+      <ul class="flashes">
+      {% for message in messages %}
+        <li>{{ message }}</li>
+      {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+{% endwith %}
+
+{# Add the appropriate method and enctype attributes to the form tag to allow for file uploads #}
+<form action="{{ url_for('upload') }}" method="post" enctype="multipart/form-data">
+
+  {# Add the file upload field as you learnt for Flask-WTF #}
+
+  <div class="form-group">
+    <label for="file">Upload your file</label>
+    <input type="file" name="file" class="form-control" />
+  </div>
+  
+  <button type="submit" name="submit" class="btn btn-primary">Upload file</button>
+</form>
+{% endblock %}
