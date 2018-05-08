@@ -8,6 +8,7 @@ import os
 from app import app
 from flask import render_template, request, redirect, url_for, flash, abort
 from werkzeug.utils import secure_filename
+from forms import UploadForm
 ###
 # Routing for your application.
 ###
@@ -20,12 +21,12 @@ def index():
 
 @app.route('/api/upload', methods=['POST'])
 def upload():
-
+    form= UploadForm()
     # Instantiate your form class
     file_folder = app.config['UPLOAD_FOLDER']
 
     # Validate file upload on submit
-    if request.method == 'POST':
+    if request.method == 'POST' and form.validate_on_submit():
         # Get file data and save to your uploads folder
         file = request.files['file']
         filename = secure_filename(file.filename)
